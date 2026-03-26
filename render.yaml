@@ -1,0 +1,68 @@
+# ─── Aeterna.ia — Render Blueprint (render.yaml) ─────────────────────────────
+# Deploy automático via: https://render.com/deploy
+# Documentação: https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: aeterna-maestro
+    env: docker
+    plan: free                        # Free Tier: 512MB RAM, disco efêmero
+    region: oregon                    # Menor latência para América do Sul via OR
+    dockerfilePath: ./Dockerfile
+
+    # ─── Variáveis de ambiente ────────────────────────────────────────────────
+    # ATENÇÃO: Preencha os valores no painel do Render após o deploy.
+    # Nunca commite valores reais neste arquivo.
+    envVars:
+
+      # ── Banco de Dados — Supabase PostgreSQL ─────────────────────────────────
+      - key: DB_TYPE
+        value: postgresdb             # Fixo — não alterar
+
+      - key: DB_POSTGRESDB_HOST
+        value:                        # Ex: db.xxxxxxxxxxxx.supabase.co
+
+      - key: DB_POSTGRESDB_PORT
+        value:                        # Ex: 5432
+
+      - key: DB_POSTGRESDB_DATABASE
+        value:                        # Ex: postgres
+
+      - key: DB_POSTGRESDB_USER
+        value:                        # Ex: postgres
+
+      - key: DB_POSTGRESDB_PASSWORD
+        value:                        # Cole a senha do Supabase aqui
+
+      - key: DB_POSTGRESDB_SSL_REJECT_UNAUTHORIZED
+        value: "false"               # Necessário para conexão Supabase no Render
+
+      # ── Autenticação Basic Auth do n8n ────────────────────────────────────
+      - key: N8N_BASIC_AUTH_ACTIVE
+        value:                        # true ou false
+
+      - key: N8N_BASIC_AUTH_USER
+        value:                        # Seu usuário de acesso ao painel n8n
+
+      - key: N8N_BASIC_AUTH_PASSWORD
+        value:                        # Senha forte — use um gerador
+
+      # ── Segurança e Identidade ────────────────────────────────────────────
+      - key: N8N_ENCRYPTION_KEY
+        value:                        # String aleatória longa (min 32 chars)
+
+      - key: WEBHOOK_URL
+        value:                        # Ex: https://aeterna-maestro.onrender.com/
+
+      # ── Runtime ──────────────────────────────────────────────────────────
+      - key: NODE_OPTIONS
+        value: "--max-old-space-size=460"
+
+      - key: N8N_PORT
+        value: "10000"
+
+      - key: PORT
+        value: "10000"
+
+      - key: N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS
+        value: "false"
