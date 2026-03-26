@@ -14,6 +14,3 @@ ENV N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=false
 
 # ─── Expor a porta para o Render detectar automaticamente ─────────────────────
 EXPOSE 10000
-
-# ─── Iniciar o orquestrador ───────────────────────────────────────────────────
-CMD ["n8n", "start"]
